@@ -1,3 +1,4 @@
+import 'package:application_sample/views/marriage.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -34,15 +35,22 @@ class _RevolvingIconsPageState extends State<RevolvingIconsPage>
 
   void _onPanUpdate(DragUpdateDetails details) {
     setState(() {
-      // Invert the direction of the rotation to make it feel intuitive
-      _rotationAngle -= details.delta.dx / 150; // Adjust sensitivity as needed
+      _rotationAngle -= details.delta.dx / 150;
     });
   }
 
   void _onIconTap(int index) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Tapped on: ${labels[index]}')),
-    );
+    if (index == 2) {
+      // Index for 'Marriage'
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MarriagePage()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Tapped on: ${labels[index]}')),
+      );
+    }
   }
 
   @override
@@ -50,7 +58,7 @@ class _RevolvingIconsPageState extends State<RevolvingIconsPage>
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
-        onPanUpdate: _onPanUpdate, // Detect drag updates for smooth rotation
+        onPanUpdate: _onPanUpdate,
         child: Stack(
           children: [
             Positioned.fill(
